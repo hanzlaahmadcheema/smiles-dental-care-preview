@@ -61,7 +61,7 @@ export function Header() {
         <div className="flex items-center gap-2">
           <a
             href="#book"
-            className="hidden min-h-11 items-center gap-2 rounded-full bg-coral px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-coral-dark sm:inline-flex"
+            className="hidden min-h-11 items-center gap-2 rounded-full bg-coral px-5 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral-dark sm:inline-flex"
           >
             Book a visit
           </a>

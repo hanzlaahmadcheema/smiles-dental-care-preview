@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { clinic, hours, serviceGroups, reviews, faqs, insurancePlans } from "@/lib/content";
 import { BookForm } from "@/components/BookForm";
+import { Reveal } from "@/components/Reveal";
 
 const GROUP_ICONS = [
   ShieldCheckIcon,
@@ -53,7 +54,7 @@ export default function HomePage() {
         <div className="container-responsive py-10 md:py-20">
           <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
             <div>
-              <p className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-forest-800 shadow-sm">
+              <p className="inline-flex animate-hero items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-forest-800 shadow-sm">
                 <span className="text-amberstar" aria-hidden="true">
                   ★★★★★
                 </span>
@@ -61,12 +62,12 @@ export default function HomePage() {
               </p>
               <h1
                 id="hero-heading"
-                className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink md:text-5xl lg:text-[3.4rem]"
+                className="mt-5 animate-hero animate-hero-delay-1 text-4xl font-extrabold leading-[1.08] tracking-tight text-ink md:text-5xl lg:text-[3.4rem]"
               >
                 A dental office that takes its time making you feel like our
                 only patient.
               </h1>
-              <div className="mt-5 md:hidden">
+              <div className="mt-5 animate-hero-photo animate-hero-delay-2 md:hidden">
                 <img
                   src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80"
                   alt="Bright, modern dental treatment room at Smiles Dental Care"
@@ -75,28 +76,28 @@ export default function HomePage() {
                   className="h-auto w-full rounded-2xl shadow-xl"
                 />
               </div>
-              <p className="mt-5 max-w-prose text-lg leading-relaxed text-muted">
+              <p className="mt-5 animate-hero animate-hero-delay-2 max-w-prose text-lg leading-relaxed text-muted">
                 Family and cosmetic dentistry in Houston, led by{" "}
                 {clinic.doctor.name}, {clinic.doctor.title}. Cleanings,
                 same-day children&rsquo;s treatment, and nitrous oxide — with a
                 team that makes nervous patients feel comfortable.
               </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-7 flex animate-hero animate-hero-delay-3 flex-col gap-3 sm:flex-row">
                 <a
                   href="#book"
-                  className="inline-flex min-h-12 items-center justify-center rounded-full bg-coral px-7 py-3 font-bold text-white shadow-lg shadow-coral/30 transition-colors hover:bg-coral-dark"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full bg-coral px-7 py-3 font-bold text-white shadow-lg shadow-coral/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-xl"
                 >
                   Book a visit
                 </a>
                 <a
                   href={`tel:${clinic.phoneTel}`}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-forest-800 px-7 py-3 font-bold text-forest-800 transition-colors hover:bg-forest-50"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-forest-800 px-7 py-3 font-bold text-forest-800 transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-50"
                 >
                   <PhoneIcon className="h-5 w-5" aria-hidden="true" />
                   Call {clinic.phoneDisplay}
                 </a>
               </div>
-              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-muted">
+              <div className="mt-8 flex animate-hero animate-hero-delay-4 flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-muted">
                 <span className="flex items-center gap-2">
                   <CheckCircleIcon className="h-5 w-5 text-forest-600" aria-hidden="true" />
                   Open Saturdays
@@ -111,7 +112,7 @@ export default function HomePage() {
                 </span>
               </div>
             </div>
-            <div className="relative hidden md:block">
+            <div className="relative hidden animate-hero-photo animate-hero-delay-2 md:block">
               <div className="overflow-hidden rounded-3xl shadow-2xl">
                 <img
                   src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80"
@@ -143,11 +144,13 @@ export default function HomePage() {
             { strong: "Open Saturdays", sub: "9:00 AM – 2:00 PM" },
             { strong: "Medicaid & CHIP", sub: "Accepted for children" },
             { strong: "Same-day care", sub: "Children's treatment" },
-          ].map((f) => (
-            <div key={f.strong} className="border-l-2 border-forest-200 pl-4">
+          ].map((f, i) => (
+            <Reveal key={f.strong} delay={(i % 4) as 0 | 1 | 2 | 3}>
+            <div className="border-l-2 border-forest-200 pl-4">
               <p className="font-extrabold text-forest-800">{f.strong}</p>
               <p className="text-sm text-muted">{f.sub}</p>
             </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -155,21 +158,23 @@ export default function HomePage() {
       {/* ---------- SERVICES, GROUPED ---------- */}
       <section id="services" className="scroll-mt-24 py-16 md:py-24" aria-labelledby="services-heading">
         <div className="container-responsive">
+          <Reveal>
           <SectionHeading
             title="Everything your smile needs, in one place"
             intro="From a six-month cleaning to a same-day emergency — here is what we do, and what each visit looks like."
           />
+          </Reveal>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {serviceGroups.map((group, i) => {
               const Icon = GROUP_ICONS[i % GROUP_ICONS.length];
               const featured = !!group.image;
               return (
-                <article
+                <Reveal
                   key={group.title}
-                  className={`overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md ${
-                    featured ? "sm:col-span-2 lg:col-span-1" : ""
-                  }`}
+                  delay={(i % 3) as 0 | 1 | 2 | 3}
+                  className={featured ? "sm:col-span-2 lg:col-span-1" : ""}
                 >
+                <article className="group h-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   {group.image && (
                     <img
                       src={group.image}
@@ -177,7 +182,7 @@ export default function HomePage() {
                       width={1600}
                       height={1067}
                       loading="lazy"
-                      className="h-44 w-full object-cover"
+                      className="h-44 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   )}
                   <div className="p-6">
@@ -207,6 +212,7 @@ export default function HomePage() {
                     </a>
                   </div>
                 </article>
+                </Reveal>
               );
             })}
           </div>
@@ -216,6 +222,7 @@ export default function HomePage() {
       {/* ---------- WHY US (dark band) ---------- */}
       <section id="why" className="scroll-mt-24 bg-forest-900 py-16 md:py-24" aria-labelledby="why-heading">
         <div className="container-responsive grid gap-10 lg:grid-cols-2 lg:items-center">
+          <Reveal variant="left">
           <div>
             <h2 id="why-heading" className="text-3xl font-extrabold tracking-tight text-white md:text-4xl">
               The difference is how the visit feels
@@ -226,11 +233,12 @@ export default function HomePage() {
             </p>
             <a
               href="#book"
-              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-coral px-7 py-3 font-bold text-white transition-colors hover:bg-coral-dark"
+              className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-coral px-7 py-3 font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral-dark"
             >
               Book a visit
             </a>
           </div>
+          </Reveal>
           <ul className="space-y-5">
             {[
               {
@@ -249,8 +257,9 @@ export default function HomePage() {
                 title: "Clear prices, before we start",
                 body: "We tell you exactly what a visit costs before any work begins. No surprises at the desk.",
               },
-            ].map((item) => (
-              <li key={item.title} className="flex gap-4">
+            ].map((item, i) => (
+              <Reveal key={item.title} delay={(i % 3) as 0 | 1 | 2 | 3}>
+              <li className="flex gap-4">
                 <CheckCircleIcon
                   className="mt-1 h-6 w-6 shrink-0 text-coral"
                   aria-hidden="true"
@@ -260,6 +269,7 @@ export default function HomePage() {
                   <p className="mt-1 leading-relaxed text-forest-100">{item.body}</p>
                 </div>
               </li>
+              </Reveal>
             ))}
           </ul>
         </div>
@@ -267,6 +277,7 @@ export default function HomePage() {
 
       {/* ---------- MEET DR. ANDY ---------- */}
       <section className="py-16 md:py-24" aria-labelledby="doctor-heading">
+        <Reveal>
         <div className="container-responsive grid items-center gap-8 md:grid-cols-[auto_1fr] md:gap-12">
           <div className="flex h-40 w-40 items-center justify-center rounded-3xl bg-forest-800 font-serif text-6xl font-semibold text-white shadow-xl md:h-52 md:w-52">
             AD
@@ -287,16 +298,19 @@ export default function HomePage() {
             </p>
           </div>
         </div>
+        </Reveal>
       </section>
 
       {/* ---------- REVIEWS ---------- */}
       <section id="reviews" className="scroll-mt-24 border-y border-forest-100 bg-forest-50 py-16 md:py-24" aria-labelledby="reviews-heading">
         <div className="container-responsive">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <Reveal>
             <SectionHeading
               title="What patients say"
               intro={`Rated ${clinic.rating} out of 5 across ${clinic.reviewCount} reviews. The words below are paraphrases of real patient reviews, not word-for-word quotes.`}
             />
+            </Reveal>
             <div className="shrink-0 rounded-2xl bg-white px-6 py-5 shadow-sm">
               <p className="flex items-center gap-2 text-3xl font-extrabold text-ink">
                 <StarIcon className="h-7 w-7 fill-amberstar text-amberstar" aria-hidden="true" />
@@ -308,11 +322,9 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {reviews.map((r) => (
-              <figure
-                key={r.quote.slice(0, 24)}
-                className="rounded-2xl bg-white p-6 shadow-sm"
-              >
+            {reviews.map((r, i) => (
+              <Reveal key={r.quote.slice(0, 24)} delay={(i % 3) as 0 | 1 | 2 | 3}>
+              <figure className="rounded-2xl bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <p className="text-amberstar" aria-hidden="true">
                   ★★★★★
                 </p>
@@ -323,6 +335,7 @@ export default function HomePage() {
                   {r.note}
                 </figcaption>
               </figure>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -332,10 +345,12 @@ export default function HomePage() {
       <section id="insurance" className="scroll-mt-24 py-16 md:py-24" aria-labelledby="insurance-heading">
         <div className="container-responsive grid gap-10 lg:grid-cols-2">
           <div>
+            <Reveal>
             <SectionHeading
               title="Insurance & paying"
               intro="We accept Medicaid and CHIP (MCNA Dental) for children's care, and we work with most major PPO dental plans. Call us with your plan name and we will check your coverage before your visit."
             />
+            </Reveal>
             <p className="mt-5 leading-relaxed text-muted">
               No dental insurance? Ask us about CareCredit and payment
               options when you call — we will find a way to make the visit
@@ -343,12 +358,13 @@ export default function HomePage() {
             </p>
             <a
               href={`tel:${clinic.phoneTel}`}
-              className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-forest-800 px-6 py-3 font-bold text-white transition-colors hover:bg-forest-900"
+              className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-forest-800 px-6 py-3 font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-900"
             >
               <PhoneIcon className="h-5 w-5" aria-hidden="true" />
               Check my coverage — {clinic.phoneDisplay}
             </a>
           </div>
+          <Reveal variant="right">
           <div>
             <p className="text-sm font-bold uppercase tracking-wide text-muted">
               Plans we commonly work with
@@ -368,11 +384,13 @@ export default function HomePage() {
               listed, call us anyway — we will check it for you.
             </p>
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- EMERGENCY ---------- */}
       <section className="bg-coral-light py-14 md:py-20" aria-labelledby="emergency-heading">
+        <Reveal>
         <div className="container-responsive flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl">
             <p className="flex items-center gap-2 font-bold text-coral-dark">
@@ -389,22 +407,25 @@ export default function HomePage() {
           </div>
           <a
             href={`tel:${clinic.phoneTel}`}
-            className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-coral px-7 py-3 font-bold text-white shadow-lg shadow-coral/30 transition-colors hover:bg-coral-dark"
+            className="inline-flex min-h-12 shrink-0 items-center gap-2 rounded-full bg-coral px-7 py-3 font-bold text-white shadow-lg shadow-coral/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral-dark hover:shadow-xl"
           >
             <PhoneIcon className="h-5 w-5" aria-hidden="true" />
             Call {clinic.phoneDisplay}
           </a>
         </div>
+        </Reveal>
       </section>
 
       {/* ---------- NEW PATIENTS ---------- */}
       <section className="py-16 md:py-24" aria-labelledby="new-heading">
         <div className="container-responsive grid gap-10 lg:grid-cols-2">
           <div>
+            <Reveal>
             <SectionHeading
               title="New here? Your first visit, step by step"
               intro="Three simple steps — and you will know exactly what to expect before you walk in."
             />
+            </Reveal>
             <ol className="mt-8 space-y-6">
               {[
                 {
@@ -420,7 +441,8 @@ export default function HomePage() {
                   body: "A cleaning and exam, digital X-rays if needed, and a plain-English plan for anything we find.",
                 },
               ].map((step, i) => (
-                <li key={step.title} className="flex gap-4">
+                <Reveal key={step.title} delay={(i % 3) as 0 | 1 | 2 | 3}>
+                <li className="flex gap-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-forest-800 text-lg font-extrabold text-white">
                     {i + 1}
                   </span>
@@ -429,10 +451,12 @@ export default function HomePage() {
                     <p className="mt-1 leading-relaxed text-muted">{step.body}</p>
                   </div>
                 </li>
+                </Reveal>
               ))}
             </ol>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <Reveal variant="right">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
             <h3 className="text-xl font-bold text-ink">What to bring</h3>
             <ul className="mt-4 space-y-3">
               {[
@@ -447,14 +471,14 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 overflow-hidden rounded-xl">
+            <div className="group mt-6 overflow-hidden rounded-xl">
               <img
                 src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80"
                 alt="Dentist reviewing 3D dental scans and X-rays"
                 width={1600}
                 height={1067}
                 loading="lazy"
-                className="h-48 w-full object-cover"
+                className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
             <p className="mt-3 text-sm text-muted">
@@ -462,17 +486,21 @@ export default function HomePage() {
               explain it to you in plain English.
             </p>
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- BOOK ---------- */}
       <section id="book" className="scroll-mt-24 border-y border-forest-100 bg-forest-50 py-16 md:py-24" aria-labelledby="book-heading">
         <div className="container-responsive grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+          <Reveal variant="left">
           <div>
+            <Reveal>
             <SectionHeading
               title="Book a visit"
               intro="Request an appointment and we will call you back to confirm your time. Prefer to talk now? Call us directly."
             />
+            </Reveal>
             <p className="mt-6 flex items-center gap-3 text-lg font-bold text-forest-800">
               <PhoneIcon className="h-6 w-6" aria-hidden="true" />
               <a href={`tel:${clinic.phoneTel}`} className="underline-offset-4 hover:underline">
@@ -489,25 +517,28 @@ export default function HomePage() {
               {clinic.address}
             </p>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          </Reveal>
+          <Reveal variant="right">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
             <BookForm />
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- FAQ ---------- */}
       <section id="faq" className="scroll-mt-24 py-16 md:py-24" aria-labelledby="faq-heading">
         <div className="container-responsive max-w-3xl">
+          <Reveal>
           <SectionHeading
             title="Questions patients ask"
             intro="Answers from the practice's public information. Anything else — call and ask."
           />
+          </Reveal>
           <div className="mt-8">
-            {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group border-t border-slate-200 py-5 last:border-b"
-              >
+            {faqs.map((f, i) => (
+              <Reveal key={f.q} delay={(i % 2) as 0 | 1}>
+              <details className="group border-t border-slate-200 py-5 last:border-b">
                 <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-lg font-bold text-ink marker:hidden [&::-webkit-details-marker]:hidden">
                   {f.q}
                   <span className="text-2xl font-normal text-muted transition-transform group-open:rotate-45" aria-hidden="true">
@@ -516,6 +547,7 @@ export default function HomePage() {
                 </summary>
                 <p className="mt-3 max-w-prose leading-relaxed text-muted">{f.a}</p>
               </details>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -524,11 +556,14 @@ export default function HomePage() {
       {/* ---------- VISIT ---------- */}
       <section id="visit" className="scroll-mt-24 border-t border-slate-200 py-16 md:py-24" aria-labelledby="visit-heading">
         <div className="container-responsive grid gap-10 md:grid-cols-2">
+          <Reveal variant="left">
           <div>
+            <Reveal>
             <SectionHeading
               title="Visit us"
               intro="On the Gulf Freeway in Houston, with free on-site parking and a wheelchair-accessible entrance."
             />
+            </Reveal>
             <table className="mt-8 w-full border-collapse">
               <thead>
                 <tr>
@@ -556,7 +591,9 @@ export default function HomePage() {
               </tbody>
             </table>
           </div>
-          <div className="rounded-2xl bg-forest-800 p-6 text-white shadow-xl sm:p-8">
+          </Reveal>
+          <Reveal variant="right">
+          <div className="rounded-2xl bg-forest-800 p-6 text-white shadow-xl sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
             <h3 className="text-xl font-bold">Getting here</h3>
             <p className="mt-3 leading-relaxed text-forest-100">
               {clinic.address}. Free on-site parking lot.
@@ -585,11 +622,13 @@ export default function HomePage() {
               can also find us on Facebook: {clinic.name}, Houston.
             </p>
           </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ---------- FINAL CTA ---------- */}
       <section className="bg-forest-900 py-16 md:py-20" aria-labelledby="closing-heading">
+        <Reveal>
         <div className="container-responsive max-w-3xl text-center md:text-left">
           <h2 id="closing-heading" className="text-3xl font-extrabold tracking-tight text-white md:text-4xl">
             Ready to book?
@@ -602,7 +641,7 @@ export default function HomePage() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:justify-start md:justify-start">
             <a
               href={`tel:${clinic.phoneTel}`}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral px-7 py-3 font-bold text-white transition-colors hover:bg-coral-dark"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral px-7 py-3 font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral-dark"
             >
               <PhoneIcon className="h-5 w-5" aria-hidden="true" />
               Call {clinic.phoneDisplay}
@@ -615,6 +654,7 @@ export default function HomePage() {
             </a>
           </div>
         </div>
+        </Reveal>
       </section>
     </div>
   );

@@ -8,6 +8,14 @@
 
 html {
   scroll-behavior: smooth;
+  /* Clip any stray horizontal overflow from reveal translations so the
+     page never scrolls sideways on mobile. `clip` (not `hidden`) keeps
+     position: sticky working. */
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -44,4 +52,109 @@ body {
   @apply static h-auto w-auto overflow-visible whitespace-normal p-0;
   clip: auto;
   margin: 0;
+}
+
+/* ---------- Scroll-reveal + hero entrance motion ----------
+   The `.js` class is added to <html> by a tiny inline script in layout.tsx
+   BEFORE the body renders. Without JS there is no `.js` class, so content is
+   always fully visible — reveals can never hide content or block reading.
+   Durations are short (0.6–0.7s) and once-only; nothing re-animates. */
+.reveal {
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.js .reveal-left {
+  transform: translateX(-22px);
+}
+
+.js .reveal-right {
+  transform: translateX(22px);
+}
+
+.js .reveal-scale {
+  transform: scale(0.96);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.08s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.16s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.24s;
+}
+
+/* Hero entrance (plays once on load) */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-photo {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.js .animate-hero {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.js .animate-hero-photo {
+  animation: hero-photo 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-hero-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-hero-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-hero-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.animate-hero-delay-4 {
+  animation-delay: 0.42s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Guarantees: content is never hidden, nothing animates. */
+  .js .reveal,
+  .js .animate-hero,
+  .js .animate-hero-photo {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 }

@@ -14,14 +14,14 @@ export function MobileActionBar() {
       <div className="grid grid-cols-2 gap-2 px-3 py-2.5">
         <a
           href={`tel:${clinic.phoneTel}`}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-forest-800 px-4 font-bold text-forest-800 transition-colors hover:bg-forest-50"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-forest-800 px-4 font-bold text-forest-800 transition-all duration-200 hover:bg-forest-50 active:scale-[0.98]"
         >
           <PhoneIcon className="h-5 w-5" aria-hidden="true" />
           Call
         </a>
         <a
           href="#book"
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral px-4 font-bold text-white transition-colors hover:bg-coral-dark"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-coral px-4 font-bold text-white transition-all duration-200 hover:bg-coral-dark active:scale-[0.98]"
         >
           <CalendarDaysIcon className="h-5 w-5" aria-hidden="true" />
           Book a visit

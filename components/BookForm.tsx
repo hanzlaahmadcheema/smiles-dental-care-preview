@@ -177,7 +177,7 @@ export function BookForm() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <button
           type="submit"
-          className="inline-flex min-h-12 items-center justify-center rounded-full bg-coral px-7 py-3 font-bold text-white transition-colors hover:bg-coral-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2"
+          className="inline-flex min-h-12 items-center justify-center rounded-full bg-coral px-7 py-3 font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-coral-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2"
         >
           Request my appointment
         </button>
