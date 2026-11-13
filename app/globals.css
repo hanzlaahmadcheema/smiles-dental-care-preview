@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  @apply bg-ivory text-ink antialiased font-sans;
+  touch-action: manipulation;
+}
+
+.container-responsive {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Screen-reader-only utility (MedBills pattern) */
+.sr-only {
+  @apply absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+  clip: rect(0, 0, 0, 0);
+  margin: -1px;
+}
+
+.sr-only:focus,
+.sr-only:focus-visible {
+  @apply static h-auto w-auto overflow-visible whitespace-normal p-0;
+  clip: auto;
+  margin: 0;
+}
